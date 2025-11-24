@@ -1,0 +1,30 @@
+# Diretórios de build
+build/
+dist/
+out/
+target/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+
+# C#
+bin/
+obj/
+
+# VS Code
+.vscode/
+
+# Firmware / Wokwi / ESP32
+.DS_Store
+*.elf
+*.bin
+*.map
+
