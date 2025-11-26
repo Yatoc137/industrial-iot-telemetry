@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: telemetry_pg
+    restart: always
+    environment:
+      POSTGRES_USER: telemetry
+      POSTGRES_PASSWORD: telemetrypass
+      POSTGRES_DB: telemetrydb
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
