@@ -1,16 +1,17 @@
-# Firmware Overview
+# **Firmware Overview**
 
----
+------
 
-This document provides a brief overview of the project's firmware. It guides the reader through the files, offering a high-level description of their functions, types, enums, and other elements. For a more detailed explanation of a specific file or feature, you can refer to its dedicated documentation.
+This document provides a high-level overview of the project's firmware structure. It introduces the main files and modules, summarizing their roles, data types, enums, and functions.
+ Its goal is to give the reader a broad understanding of how the firmware is organized and how its components interact.
+ For more in-depth information on a specific file or subsystem, refer to the corresponding dedicated documentation.
 
----
+------
 
-### utils.h
+### **utils.h**
 
 - **2 enums**
 - **4 functions**
 
-This file serves as a support module for the rest of the firmware. It centralizes the utility routines used by most other files, such as unit conversion, value mapping, and value smoothing.
-
----
+The `utils.h` file acts as a foundational support module for the entire firmware. It centralizes commonly used utility routines, helping maintain consistency and reducing code duplication across the project.
+ Among its responsibilities are unit conversions, value mapping, and smoothing functions—operations frequently required by various modules throughout the system.
