@@ -27,6 +27,7 @@ obj/
 *.elf
 *.bin
 *.map
+/firmware/build
 
 .env
 .env.local
