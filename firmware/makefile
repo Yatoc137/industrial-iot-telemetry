@@ -1,6 +1,6 @@
 #=== Variables ==========================================================================#
 
-CC := gcc
+CC := gcc # IMPORTANT! change to esp32 cross compiler before flashing or linking
 INCLUDE := -Iinclude
 
 DEPFLAGS := -MMD -MP
