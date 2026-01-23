@@ -10,6 +10,8 @@ DEBUGFLAGS := -Og -g3 -fno-omit-frame-pointer -fno-inline \
 
 RELEASEFLAGS := -O2 -DNDEBUG -Wall -Wextra
 
+CIFLAGS := -Werror -fno-common -Wundef -Wdouble-promotion
+
 CFLAGS :=
 
 #=== Source & Objects ===================================================================#
@@ -21,7 +23,7 @@ OBJ_RELEASE := $(patsubst src/%.c,build/release/%.o,$(SRC))
 
 #=== PHONY Rules ========================================================================#
 
-.PHONY: all release clean
+.PHONY: all release clean ci
 
 #=== High-Level Rules ===================================================================#
 
@@ -30,6 +32,10 @@ all: $(OBJ_DEBUG)
 
 release: CFLAGS = $(RELEASEFLAGS)
 release: $(OBJ_RELEASE)
+
+ci:
+	$(MAKE) clean || true
+	$(MAKE) all CFLAGS="$(DEBUGFLAGS) $(CIFLAGS)"
 
 #=== Generic Rules ======================================================================#
 
