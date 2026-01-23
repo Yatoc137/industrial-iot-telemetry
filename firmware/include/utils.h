@@ -1,6 +1,6 @@
 #pragma once
 
-// temperature Units
+// temperature units
 typedef enum{
     FAHRENHEIT, // Fahrenheit
     CELSIUS,    // Celsius
@@ -9,11 +9,18 @@ typedef enum{
 
 // pressure units
 typedef enum{
-    BAR,     // Bar
-    PSI,     // PSI
-    KGFCM2,  // KgF/CM2
-    MMH2O    // mmH2O
+    BAR,    // Bar
+    PSI,    // PSI
+    KGFCM2, // KgF/CM2
+    MMH2O   // mmH2O
 }UTIL_PRESSURE;
+
+typedef enum{
+    RPM, // RPM
+    RPS, // RPS
+    Hz,  // Hz
+    RadS // Rad/s
+}UTIL_ROTATION;
 
 // mapping function
 static inline float utilMap(float value, float in_min, float in_max, float out_min, float out_max){
@@ -40,6 +47,7 @@ static inline float utilTempConvert(UTIL_TEMP from, float v, UTIL_TEMP to){
         case CELSIUS:     k = v + 273.15f; break;
         case FAHRENHEIT:  k = (v - 32.0f) * 5.0f/9.0f + 273.15f; break;
         case KELVIN:      k = v; break;
+        default: return 0.0f;
     }
 
     // converts value (in kelvin) to requested unit
@@ -47,9 +55,8 @@ static inline float utilTempConvert(UTIL_TEMP from, float v, UTIL_TEMP to){
         case CELSIUS:     return k - 273.15f;
         case FAHRENHEIT:  return (k - 273.15f) * 9.0f/5.0f + 32.0f;
         case KELVIN:      return k;
+        default: return 0.0f;
     }
-
-    return v;
 }
 
 // pressure conversion function
@@ -62,6 +69,7 @@ static inline float utilPressureConvert(UTIL_PRESSURE from, float v, UTIL_PRESSU
         case PSI:     kpa = v * 6.894757f;     break;
         case KGFCM2:  kpa = v * 98.0665f;      break;
         case MMH2O:   kpa = v * 0.00980665f;   break;
+        default: return 0.0f;
     }
 
     // converts value (in kPa) to requested unit
@@ -70,7 +78,26 @@ static inline float utilPressureConvert(UTIL_PRESSURE from, float v, UTIL_PRESSU
         case PSI:     return kpa * 0.1450377f;
         case KGFCM2:  return kpa * 0.0101972f;
         case MMH2O:   return kpa * 101.9716213f;
+        default: return 0.0f;
+    }
+}
+
+static inline float utilRotationConvert(UTIL_ROTATION from, float v, UTIL_ROTATION to){
+    float rpm = 0.0f;
+
+    switch (from){
+        case RPM:  rpm = v;               break;
+        case RPS:  rpm = v * 60.0f;       break;
+        case Hz:   rpm = v * 60.0f;       break;
+        case RadS: rpm = v * 9.54929658f; break;
+        default: return 0.0f;
     }
 
-    return v;
+    switch (to){
+        case RPM:  return rpm;
+        case RPS:  return rpm / 60.0f;
+        case Hz:   return rpm / 60.0f;
+        case RadS: return rpm * 0.10471976f;
+        default: return 0.0f;
+    }
 }
